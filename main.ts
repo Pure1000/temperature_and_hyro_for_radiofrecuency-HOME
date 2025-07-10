@@ -95,7 +95,10 @@ basic.forever(function () {
     turtle.forward(1)
     turtle.setPosition(4, 4)
 })
-loops.everyInterval(86400000, function () {
+loops.everyInterval(1000, function () {
+    time += 1
+})
+loops.everyInterval(5000, function () {
     datalogger.log(
     datalogger.createCV("time", "" + time + "s"),
     datalogger.createCV("ºC", input.temperature()),
@@ -106,7 +109,4 @@ loops.everyInterval(86400000, function () {
     serial.writeValue("ºC", input.temperature())
     serial.writeValue("Hyro", Hyro_Nº)
     serial.writeValue("time event", control.eventTimestamp())
-})
-loops.everyInterval(1000, function () {
-    time += 1
 })
