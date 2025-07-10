@@ -1,3 +1,8 @@
+function Configure_variables () {
+    time = 0
+    Hyro_Nº = randint(0, 100)
+    time = 0
+}
 function Microturtle_configuration () {
     turtle.pen(TurtlePenMode.Up)
     turtle.setBrightness(255)
@@ -10,6 +15,7 @@ function Configures () {
     Serial_configuration()
     Datalogger_configuration()
     Microturtle_configuration()
+    Configure_variables()
 }
 function Configure_radio_frequency () {
     radio.setGroup(1e+99)
@@ -40,9 +46,12 @@ function Datalogger_configuration () {
     datalogger.setColumnTitles(
     "time",
     "Hyro",
-    "ºC"
+    "ºC",
+    "time event"
     )
 }
+let Hyro_Nº = 0
+let time = 0
 Configures()
 basic.forever(function () {
     turtle.forward(1)
@@ -85,4 +94,19 @@ basic.forever(function () {
     turtle.setPosition(3, 4)
     turtle.forward(1)
     turtle.setPosition(4, 4)
+})
+loops.everyInterval(86400000, function () {
+    datalogger.log(
+    datalogger.createCV("time", "" + time + "s"),
+    datalogger.createCV("ºC", input.temperature()),
+    datalogger.createCV("Hyro", "" + Hyro_Nº + "%"),
+    datalogger.createCV("time event", control.eventTimestamp())
+    )
+    serial.writeValue("time", time)
+    serial.writeValue("ºC", input.temperature())
+    serial.writeValue("Hyro", Hyro_Nº)
+    serial.writeValue("time event", control.eventTimestamp())
+})
+loops.everyInterval(1000, function () {
+    time += 1
 })
