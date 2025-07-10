@@ -1,3 +1,6 @@
+enum RadioMessage {
+    message1 = 49434
+}
 function Configure_variables () {
     time = 0
     Hyro_Nº = randint(0, 100)
@@ -106,6 +109,10 @@ loops.everyInterval(86400000, function () {
     serial.writeValue("ºC", input.temperature())
     serial.writeValue("Hyro", Hyro_Nº)
     serial.writeValue("time event", control.eventTimestamp())
+    radio.sendValue("Time", time)
+    radio.sendValue("ºC", input.temperature())
+    radio.sendValue("Hyro", Hyro_Nº)
+    radio.sendValue("Hyro", control.eventTimestamp())
 })
 loops.everyInterval(1000, function () {
     time += 1
