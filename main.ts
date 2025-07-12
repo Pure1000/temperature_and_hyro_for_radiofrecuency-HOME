@@ -13,6 +13,10 @@ function Microturtle_configuration () {
     turtle.setSpeed(25.5)
     turtle.setPosition(0, 0)
 }
+datalogger.onLogFull(function () {
+    turtle.pen(TurtlePenMode.Up)
+    basic.pause(null)
+})
 function Configures () {
     Configure_radio_frequency()
     Serial_configuration()
@@ -112,7 +116,6 @@ loops.everyInterval(86400000, function () {
     radio.sendValue("Time", time)
     radio.sendValue("ºC", input.temperature())
     radio.sendValue("Hyro", Hyro_Nº)
-    radio.sendValue("Hyro", control.eventTimestamp())
 })
 loops.everyInterval(1000, function () {
     time += 1
