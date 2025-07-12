@@ -6,6 +6,10 @@ function Configure_variables () {
     Hyro_Nº = randint(0, 100)
     time = 0
 }
+datalogger.onLogFull(function () {
+    turtle.pen(TurtlePenMode.Up)
+    basic.pause(null)
+})
 function Microturtle_configuration () {
     turtle.pen(TurtlePenMode.Up)
     turtle.setBrightness(255)
@@ -13,10 +17,6 @@ function Microturtle_configuration () {
     turtle.setSpeed(25.5)
     turtle.setPosition(0, 0)
 }
-datalogger.onLogFull(function () {
-    turtle.pen(TurtlePenMode.Up)
-    basic.pause(null)
-})
 function Configures () {
     Configure_radio_frequency()
     Serial_configuration()
